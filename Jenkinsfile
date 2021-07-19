@@ -15,6 +15,9 @@ pipeline {
         stage('Deploy to Staging'){
             steps {
                  build job:'Deploy-to-Staging'
+                 success{
+                      echo 'Deployment to staging environment is successful..Hurray!!'
+                 }
             }
         }
 
