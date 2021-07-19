@@ -1,1 +1,1 @@
-Hello, World! Version 2 a
+Hello, World! Version 2
