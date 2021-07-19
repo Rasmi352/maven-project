@@ -12,17 +12,30 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to Staging'){
+        stage ('Deploy to Staging'){
             steps {
-                 build job:'Deploy-to-Staging'
-
+                build job: 'Deploy-to-staging'
             }
-            post {
-                   success {
-                             echo 'Deployment to staging environment is successful..Hurray!!'
-                            }
-                 }
         }
 
+        stage ('Deploy to Production'){
+            steps{
+                timeout(time:5, unit:'DAYS'){
+                    input message:'Approve PRODUCTION Deployment?'
+                }
+
+                build job: 'Deploy-to-Prod'
+            }
+            post {
+                success {
+                    echo 'Code deployed to Production.'
+                }
+
+                failure {
+                    echo ' Deployment failed.'
+                }
+            }
+        }
+
+
     }
-}
